@@ -21,8 +21,8 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonLabelDisabled: {
-    color: "#dcdcdc"
-  }
+    color: "#dcdcdc",
+  },
 });
 
 export const button_ripple_color = "darkblue";

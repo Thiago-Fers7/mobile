@@ -5,12 +5,12 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    borderColor: '#afafafff',
+    borderColor: "#afafafff",
     borderWidth: 1,
     borderRadius: 8,
-    color: 'black',
+    color: "black",
   },
   inputFocused: {
-    borderColor: 'blue',
+    borderColor: "blue",
   },
-})
+});

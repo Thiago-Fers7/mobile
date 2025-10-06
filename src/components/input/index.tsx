@@ -1,38 +1,40 @@
-import { BlurEvent, FocusEvent, TextInput as NativeTextInput, TextInputProps as NativeTextInputProps } from 'react-native';
+import { RefObject, useState } from "react";
+import {
+  BlurEvent,
+  FocusEvent,
+  TextInput as NativeTextInput,
+  TextInputProps as NativeTextInputProps,
+} from "react-native";
 
-import { forwardRef, useState } from 'react';
-import { styles } from './styles';
+import { styles } from "./styles";
 
-type InputProps = NativeTextInputProps
+type InputProps = NativeTextInputProps & {
+  ref?: RefObject<NativeTextInput | null>;
+};
 
-export const Input= forwardRef<NativeTextInput, InputProps>(({...props}, ref) => {
+export function Input({ ref, ...props }: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
 
   function onFocus(event: FocusEvent) {
-    setIsFocused(true)
+    setIsFocused(true);
 
-    props.onFocus?.(event)
+    props.onFocus?.(event);
   }
 
   function onBlur(event: BlurEvent) {
-    setIsFocused(false)
+    setIsFocused(false);
 
-    props.onBlur?.(event)
+    props.onBlur?.(event);
   }
 
   return (
     <NativeTextInput
       ref={ref}
-      style={[
-        styles.input,
-        isFocused && styles.inputFocused
-      ]}
+      style={[styles.input, isFocused && styles.inputFocused]}
       placeholderTextColor="#afafafff"
-
       {...props}
-
       onFocus={onFocus}
       onBlur={onBlur}
     />
-  )
-})
+  );
+}

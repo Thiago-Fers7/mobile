@@ -3,11 +3,11 @@ import { Switch as NativeSwtich, SwitchProps as NativeSwitchProps } from "react-
 
 type SwitchProps = NativeSwitchProps;
 
-export function Switch({...rest}: SwitchProps) {
+export function Switch({ ...rest }: SwitchProps) {
   const [isActive, setIsActive] = useState(false);
 
   function toggleSwitch() {
-    setIsActive(previousState => !previousState);
+    setIsActive((previousState) => !previousState);
   }
 
   return (
@@ -19,5 +19,5 @@ export function Switch({...rest}: SwitchProps) {
       ios_backgroundColor={"#b7b7b7"}
       {...rest}
     />
-  )
+  );
 }

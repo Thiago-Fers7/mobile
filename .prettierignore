@@ -1,0 +1,16 @@
+# Ignore configuration files
+.prettierrc.js
+.eslintrc.js
+babel.config.js
+metro.config.js
+
+# Ignore dependencies
+node_modules
+yarn.lock
+package-lock.json
+
+# Ignore build folders and environment files
+/android
+/ios
+/build
+.env
