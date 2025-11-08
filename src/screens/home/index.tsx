@@ -1,7 +1,8 @@
 import { Button } from "@components/button";
+import { DefaultLayout } from "@components/layouts/default-layout";
 import { useAuth } from "@contexts/AuthContext";
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 
 export function Home() {
   const { signOut } = useAuth();
@@ -19,12 +20,12 @@ export function Home() {
   const logoutText = isLoadingSignOut ? "Saindo..." : "Sair";
 
   return (
-    <View>
+    <DefaultLayout>
       <Text>Home Screen</Text>
 
       <Button onPress={handleLogout} disabled={isLoadingSignOut}>
         {logoutText}
       </Button>
-    </View>
+    </DefaultLayout>
   );
 }

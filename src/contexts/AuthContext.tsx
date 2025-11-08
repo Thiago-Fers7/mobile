@@ -1,6 +1,6 @@
 import { storage } from "@services/storage/mmkv";
 import { delay } from "@utils/delay";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
 import { User } from "src/@types/user";
 
 const USER_DATA_STORE_KEY = "@MyApp:user_data";
@@ -15,12 +15,11 @@ type AuthContextData = {
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 type AuthProviderProps = {
-  children: ReactNode;
+  readonly children: ReactNode;
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(": AuthProvider -> isLoggedIn", isLoggedIn);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -31,7 +30,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setIsLoggedIn(true);
       }
 
-      await delay(2000);
+      await delay(200);
 
       setIsLoading(false);
     }
@@ -55,11 +54,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setIsLoggedIn(false);
   }
 
-  return (
-    <AuthContext.Provider value={{ isLoggedIn, isLoading, signIn, signOut }}>
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({
+      isLoggedIn,
+      isLoading,
+      signIn,
+      signOut,
+    }),
+    [isLoggedIn, isLoading]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
