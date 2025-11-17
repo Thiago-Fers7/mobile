@@ -4,6 +4,8 @@ import { useAuth } from "@contexts/AuthContext";
 import { useState } from "react";
 import { Text } from "react-native";
 
+import { ContactList } from "./components/contact-list";
+
 export function Home() {
   const { signOut } = useAuth();
 
@@ -21,7 +23,11 @@ export function Home() {
 
   return (
     <DefaultLayout>
-      <Text>Home Screen</Text>
+      <Text>Bem-vindo ao aplicativo!</Text>
+
+      <Text>Lista de contatos</Text>
+
+      <ContactList />
 
       <Button onPress={handleLogout} disabled={isLoadingSignOut}>
         {logoutText}

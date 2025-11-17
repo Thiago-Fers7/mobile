@@ -9,8 +9,8 @@ export const styles = StyleSheet.create({
     color: "black",
   },
   formContainer: {
-    display: "flex",
-    justifyContent: "space-between",
+    flex: 1,
+    justifyContent: "center",
     gap: 10,
   },
 });

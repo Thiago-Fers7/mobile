@@ -14,14 +14,15 @@ import { styles } from "./styles";
 type DefaultLayoutProps = {
   readonly children: ReactNode;
   readonly style?: StyleProp<ViewStyle>;
+  readonly layoutStyle?: StyleProp<ViewStyle>;
 };
 
-export function DefaultLayout({ children, style }: DefaultLayoutProps) {
+export function DefaultLayout({ children, style, layoutStyle }: DefaultLayoutProps) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <SafeAreaView style={styles.mainContainer}>
+      <SafeAreaView style={[styles.mainContainer, style]}>
         <KeyboardAvoidingView
-          style={[styles.container, style]}
+          style={[styles.container, layoutStyle]}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           {children}

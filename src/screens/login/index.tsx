@@ -4,7 +4,7 @@ import { DefaultLayout } from "@components/layouts/default-layout";
 import { Switch } from "@components/switch";
 import { useAuth } from "@contexts/AuthContext";
 import { useRef, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { ScrollView, Text, TextInput } from "react-native";
 
 import { styles } from "./styles";
 
@@ -51,7 +51,7 @@ export function LoginScreen() {
 
   return (
     <DefaultLayout>
-      <View style={styles.formContainer}>
+      <ScrollView contentContainerStyle={styles.formContainer} showsVerticalScrollIndicator={false}>
         <Text style={styles.headerTitle}>Entre com sua conta</Text>
 
         <Input
@@ -78,7 +78,7 @@ export function LoginScreen() {
         </Button>
 
         <Switch />
-      </View>
+      </ScrollView>
     </DefaultLayout>
   );
 }
