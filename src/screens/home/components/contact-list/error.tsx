@@ -1,5 +1,13 @@
 import { Text } from "react-native";
 
-export function ContactsListError() {
-  return <Text>Ocorreu um erro ao carregar os contatos.</Text>;
+type ContactsListErrorProps = {
+  onRetry?: () => void;
+};
+
+export function ContactsListError({ onRetry }: ContactsListErrorProps) {
+  return (
+    <Text onPress={onRetry}>
+      Erro ao carregar a lista de contatos. Toque para tentar novamente.
+    </Text>
+  );
 }

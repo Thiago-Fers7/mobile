@@ -1,13 +1,18 @@
 import { Button } from "@components/button";
 import { DefaultLayout } from "@components/layouts/default-layout";
+import { Typography } from "@components/typography";
 import { useAuth } from "@contexts/AuthContext";
+import { contactsKeys } from "@hooks/queries/contacts/contactsKeys";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Text } from "react-native";
+import { View } from "react-native";
 
 import { ContactList } from "./components/contact-list";
+import { styles } from "./styles";
 
 export function Home() {
   const { signOut } = useAuth();
+  const queryClient = useQueryClient();
 
   const [isLoadingSignOut, setIsLoadingSignOut] = useState(false);
 
@@ -16,6 +21,10 @@ export function Home() {
 
     await signOut();
 
+    queryClient.removeQueries({
+      queryKey: contactsKeys.all,
+    });
+
     setIsLoadingSignOut(false);
   }
 
@@ -23,15 +32,19 @@ export function Home() {
 
   return (
     <DefaultLayout>
-      <Text>Bem-vindo ao aplicativo!</Text>
+      <Typography variant="heading" style={styles.title}>
+        Lista de contatos
+      </Typography>
 
-      <Text>Lista de contatos</Text>
+      <View style={styles.container}>
+        <ContactList />
+      </View>
 
-      <ContactList />
-
-      <Button onPress={handleLogout} disabled={isLoadingSignOut}>
-        {logoutText}
-      </Button>
+      <View style={styles.footer}>
+        <Button onPress={handleLogout} disabled={isLoadingSignOut}>
+          {logoutText}
+        </Button>
+      </View>
     </DefaultLayout>
   );
 }

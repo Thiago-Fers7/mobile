@@ -2,9 +2,10 @@ import { Button } from "@components/button";
 import { Input } from "@components/input";
 import { DefaultLayout } from "@components/layouts/default-layout";
 import { Switch } from "@components/switch";
+import { Typography } from "@components/typography";
 import { useAuth } from "@contexts/AuthContext";
 import { useRef, useState } from "react";
-import { ScrollView, Text, TextInput } from "react-native";
+import { ScrollView, TextInput } from "react-native";
 
 import { styles } from "./styles";
 
@@ -50,9 +51,11 @@ export function LoginScreen() {
   const confirmButtonText = isSubmitting ? "Entrando..." : "Entrar";
 
   return (
-    <DefaultLayout>
+    <DefaultLayout layoutStyle={styles.container} touchWithoutFeedback={true}>
       <ScrollView contentContainerStyle={styles.formContainer} showsVerticalScrollIndicator={false}>
-        <Text style={styles.headerTitle}>Entre com sua conta</Text>
+        <Typography variant="heading" style={styles.headerTitle}>
+          Entre com sua conta
+        </Typography>
 
         <Input
           placeholder="E-mail"

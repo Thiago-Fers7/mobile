@@ -19,6 +19,7 @@ module.exports = {
           '@hooks': './src/hooks',
           '@assets': './src/assets',
           '@types': './src/@types',
+          '@theme': './src/styles/theme',
         },
       },
     ],

@@ -1,10 +1,14 @@
+import { QueryProvider } from "@services/query/queryProvider";
+
 import { AuthProvider } from "./contexts/AuthContext";
 import { Routes } from "./routes";
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Routes />
-    </AuthProvider>
+    <QueryProvider>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </QueryProvider>
   );
 }

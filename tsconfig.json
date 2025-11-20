@@ -13,7 +13,8 @@
       "@contexts/*": ["./src/contexts/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@assets/*": ["./src/assets/*"],
-      "@types/*": ["src/@types/*"]
+      "@types/*": ["src/@types/*"],
+      "@theme": ["./src/styles/theme"]
     },
     "types": ["react-native"]
   }

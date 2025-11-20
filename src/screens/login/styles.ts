@@ -1,12 +1,13 @@
+import { theme } from "@theme";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+  container: {
+    padding: theme.spacing.s16,
+  },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-    color: "black",
   },
   formContainer: {
     flex: 1,
