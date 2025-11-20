@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
   },
   listItem: {
     padding: theme.spacing.s12,
+    height: 60,
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: theme.spacing.s8,

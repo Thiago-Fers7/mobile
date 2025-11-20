@@ -16,6 +16,16 @@ export function ContactList() {
     return <ContactsListError onRetry={refetch} />;
   }
 
+  function getItemLayout(_: unknown, index: number) {
+    return {
+      index,
+      length: styles.listItem.height + styles.listItem.padding * 2 + styles.contentContainer.gap,
+      offset:
+        (styles.listItem.height + styles.listItem.padding * 2 + styles.contentContainer.gap) *
+        index,
+    };
+  }
+
   return (
     <FlatList
       data={contacts}
@@ -27,6 +37,7 @@ export function ContactList() {
           <Text>{item.email}</Text>
         </View>
       )}
+      getItemLayout={getItemLayout}
     />
   );
 }
