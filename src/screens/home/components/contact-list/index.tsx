@@ -1,20 +1,35 @@
+import { EmptyList } from "@components/empty-list";
 import { useGetContacts } from "@hooks/queries/contacts/useGetContacts";
-import { FlatList, Text, View } from "react-native";
+import { Contact } from "@services/requests/contacts/get-contacts";
+import { memo, useCallback } from "react";
+import { FlatList, ListRenderItemInfo, Text, View } from "react-native";
 
 import { ContactsListError } from "./error";
 import { LoadingContactsList } from "./loading";
 import { styles } from "./styles";
 
+type ContactItemProps = {
+  contact: Contact;
+};
+
+const ContactItem = ({ contact }: ContactItemProps) => {
+  return (
+    <View style={styles.listItem}>
+      <Text>{contact.name}</Text>
+      <Text>{contact.email}</Text>
+    </View>
+  );
+};
+
+export const MemoizedContactItem = memo(ContactItem);
+
 export function ContactList() {
   const { data: contacts, isLoading, isFetching, isError, refetch } = useGetContacts();
 
-  if (isLoading || isFetching) {
-    return <LoadingContactsList />;
-  }
-
-  if (isError) {
-    return <ContactsListError onRetry={refetch} />;
-  }
+  const renderItem = useCallback(
+    ({ item }: ListRenderItemInfo<Contact>) => <MemoizedContactItem contact={item} />,
+    []
+  );
 
   function getItemLayout(_: unknown, index: number) {
     return {
@@ -26,18 +41,24 @@ export function ContactList() {
     };
   }
 
+  if (isLoading) {
+    return <LoadingContactsList />;
+  }
+
+  if (isError) {
+    return <ContactsListError onRetry={refetch} />;
+  }
+
   return (
     <FlatList
       data={contacts}
       keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={styles.contentContainer}
-      renderItem={({ item }) => (
-        <View style={styles.listItem}>
-          <Text>{item.name}</Text>
-          <Text>{item.email}</Text>
-        </View>
-      )}
+      ListEmptyComponent={<EmptyList message="Nenhum contato encontrado." />}
+      renderItem={renderItem}
       getItemLayout={getItemLayout}
+      refreshing={isFetching}
+      onRefresh={refetch}
     />
   );
 }
