@@ -2,7 +2,7 @@ import { delay } from "@utils/delay";
 import { User } from "src/@types/user";
 
 export async function getUser(): Promise<User> {
-  await delay(1000);
+  await delay(300);
 
   return {
     id: "1",

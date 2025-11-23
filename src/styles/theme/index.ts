@@ -1,22 +1,51 @@
-const palette = {
-  primary500: "#0056D2",
-  primary600: "#0041A3",
-  neutral100: "#FFFFFF",
-  neutral200: "#F5F5F5",
-  neutral900: "#121214",
-  danger: "#E11D48",
+const colors = {
+  primary: {
+    50: "#E6F0FF",
+    100: "#B3D3FF",
+    200: "#80B7FF",
+    300: "#4D9AFF",
+    400: "#1A7EFF",
+    500: "#0056D2",
+    600: "#0041A3",
+    700: "#002C73",
+    800: "#001744",
+    900: "#000B22",
+  },
+
+  neutral: {
+    50: "#FAFAFA",
+    100: "#FFFFFF",
+    200: "#F5F5F5",
+    300: "#E5E5E5",
+    400: "#A3A3A3",
+    500: "#737373",
+    600: "#525252",
+    700: "#404040",
+    800: "#262626",
+    900: "#121214",
+  },
+
+  success: {
+    400: "#4ADE80",
+    500: "#22C55E",
+    600: "#16A34A",
+  },
+
+  warning: {
+    400: "#FACC15",
+    500: "#EAB308",
+    600: "#CA8A04",
+  },
+
+  danger: {
+    400: "#F87171",
+    500: "#EF4444",
+    600: "#DC2626",
+  },
 } as const;
 
 export const theme = {
-  colors: {
-    background: palette.neutral100,
-    backgroundSubtle: palette.neutral200,
-    textPrimary: palette.neutral900,
-    textInverted: palette.neutral100,
-    brand: palette.primary500,
-    brandPressed: palette.primary600,
-    error: palette.danger,
-  },
+  colors,
   spacing: {
     s4: 4,
     s8: 8,
@@ -26,8 +55,8 @@ export const theme = {
     s32: 32,
   },
   textVariants: {
-    heading: { fontSize: 24, fontWeight: "bold", color: palette.neutral900 },
-    body: { fontSize: 16, color: palette.neutral900 },
+    heading: { fontSize: 24, fontWeight: "bold", color: colors.neutral[900] },
+    body: { fontSize: 16, color: colors.neutral[900] },
     caption: { fontSize: 12, color: "#666" },
   },
 } as const;

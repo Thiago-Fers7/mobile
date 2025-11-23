@@ -39,7 +39,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   async function signIn(userData: User) {
-    await delay(1000);
+    await delay(300);
 
     storage.set(USER_DATA_STORE_KEY, JSON.stringify(userData));
 
@@ -47,7 +47,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function signOut() {
-    await delay(1000);
+    await delay(300);
 
     storage.delete(USER_DATA_STORE_KEY);
 

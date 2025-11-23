@@ -1,11 +1,12 @@
 import { EmptyList } from "@components/empty-list";
+import { ErrorSection } from "@components/error-section";
+import { LoadingSection } from "@components/loading-section";
+import { Typography } from "@components/typography";
 import { useGetContacts } from "@hooks/queries/contacts/useGetContacts";
-import { Contact } from "@services/requests/contacts/get-contacts";
 import { memo, useCallback } from "react";
-import { FlatList, ListRenderItemInfo, Text, View } from "react-native";
+import { FlatList, ListRenderItemInfo, View } from "react-native";
+import type { Contact } from "src/@types/contacts";
 
-import { ContactsListError } from "./error";
-import { LoadingContactsList } from "./loading";
 import { styles } from "./styles";
 
 type ContactItemProps = {
@@ -14,9 +15,9 @@ type ContactItemProps = {
 
 const ContactItem = ({ contact }: ContactItemProps) => {
   return (
-    <View style={styles.listItem}>
-      <Text>{contact.name}</Text>
-      <Text>{contact.email}</Text>
+    <View style={[styles.listItem, contact.favorite && styles.favoriteItem]}>
+      <Typography variant="body">{contact.name}</Typography>
+      <Typography variant="caption">{contact.email}</Typography>
     </View>
   );
 };
@@ -42,23 +43,31 @@ export function ContactList() {
   }
 
   if (isLoading) {
-    return <LoadingContactsList />;
+    return <LoadingSection message="Carregando contatos..." />;
   }
 
   if (isError) {
-    return <ContactsListError onRetry={refetch} />;
+    return (
+      <ErrorSection
+        message="Ocorreu um erro ao carregar os contatos."
+        description="Verifique sua conexão com a internet e tente novamente."
+        onRetry={refetch}
+      />
+    );
   }
 
   return (
-    <FlatList
-      data={contacts}
-      keyExtractor={(item) => item.id.toString()}
-      contentContainerStyle={styles.contentContainer}
-      ListEmptyComponent={<EmptyList message="Nenhum contato encontrado." />}
-      renderItem={renderItem}
-      getItemLayout={getItemLayout}
-      refreshing={isFetching}
-      onRefresh={refetch}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={contacts}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={styles.contentContainer}
+        ListEmptyComponent={<EmptyList message="Nenhum contato encontrado." />}
+        renderItem={renderItem}
+        getItemLayout={getItemLayout}
+        refreshing={isFetching}
+        onRefresh={refetch}
+      />
+    </View>
   );
 }

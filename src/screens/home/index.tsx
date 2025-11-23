@@ -8,6 +8,7 @@ import { useState } from "react";
 import { View } from "react-native";
 
 import { ContactList } from "./components/contact-list";
+import { FavoritesContacts } from "./components/favorites-contacts";
 import { styles } from "./styles";
 
 export function Home() {
@@ -33,12 +34,16 @@ export function Home() {
   return (
     <DefaultLayout>
       <Typography variant="heading" style={styles.title}>
-        Lista de contatos
+        Favoritos
       </Typography>
 
-      <View style={styles.container}>
-        <ContactList />
-      </View>
+      <FavoritesContacts />
+
+      <Typography variant="heading" style={styles.title}>
+        Todos os contatos
+      </Typography>
+
+      <ContactList />
 
       <View style={styles.footer}>
         <Button onPress={handleLogout} disabled={isLoadingSignOut}>
