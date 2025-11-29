@@ -1,22 +1,27 @@
+import { theme } from "@theme";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
     height: 150,
+    position: "relative",
   },
   contentContainer: {
     padding: 16,
     paddingTop: 0,
     gap: 12,
   },
-  listItem: {
+  cardButton: {
     padding: 12,
     width: 220,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: theme.colors.neutral[300],
     borderRadius: 8,
 
     display: "flex",
     justifyContent: "center",
+  },
+  cardButtonActive: {
+    backgroundColor: theme.colors.neutral[200],
   },
 });

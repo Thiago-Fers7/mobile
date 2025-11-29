@@ -1,28 +1,13 @@
 import { EmptyList } from "@components/empty-list";
 import { ErrorSection } from "@components/error-section";
 import { LoadingSection } from "@components/loading-section";
-import { Typography } from "@components/typography";
 import { useGetContacts } from "@hooks/queries/contacts/useGetContacts";
-import { memo, useCallback } from "react";
+import { useCallback } from "react";
 import { FlatList, ListRenderItemInfo, View } from "react-native";
 import type { Contact } from "src/@types/contacts";
 
+import { MemoizedContactItem } from "./contact-item";
 import { styles } from "./styles";
-
-type ContactItemProps = {
-  contact: Contact;
-};
-
-const ContactItem = ({ contact }: ContactItemProps) => {
-  return (
-    <View style={[styles.listItem, contact.favorite && styles.favoriteItem]}>
-      <Typography variant="body">{contact.name}</Typography>
-      <Typography variant="caption">{contact.email}</Typography>
-    </View>
-  );
-};
-
-export const MemoizedContactItem = memo(ContactItem);
 
 export function ContactList() {
   const { data: contacts, isLoading, isFetching, isError, refetch } = useGetContacts();
@@ -35,9 +20,10 @@ export function ContactList() {
   function getItemLayout(_: unknown, index: number) {
     return {
       index,
-      length: styles.listItem.height + styles.listItem.padding * 2 + styles.contentContainer.gap,
+      length:
+        styles.cardButton.height + styles.cardButton.padding * 2 + styles.contentContainer.gap,
       offset:
-        (styles.listItem.height + styles.listItem.padding * 2 + styles.contentContainer.gap) *
+        (styles.cardButton.height + styles.cardButton.padding * 2 + styles.contentContainer.gap) *
         index,
     };
   }

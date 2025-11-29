@@ -3,10 +3,9 @@ import { Text, TextProps } from "react-native";
 
 import { styles, Variants } from "./styles";
 
-type TypographyProps = {
+type TypographyProps = TextProps & {
   variant: Variants;
   children: ReactNode;
-  style?: TextProps["style"];
 };
 
 export function Typography({ variant, children, style }: TypographyProps) {

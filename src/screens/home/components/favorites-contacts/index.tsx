@@ -1,10 +1,13 @@
 import { EmptyList } from "@components/empty-list";
 import { ErrorSection } from "@components/error-section";
 import { LoadingSection } from "@components/loading-section";
+import { SyncBar } from "@components/sync-bar";
 import { Typography } from "@components/typography";
 import { useGetFavoritesContacts } from "@hooks/queries/contacts/useGetFavoritesContacts";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackNavigationProp } from "@routes/types";
 import { memo, useCallback } from "react";
-import { FlatList, ListRenderItemInfo, View } from "react-native";
+import { FlatList, ListRenderItemInfo, Pressable, View } from "react-native";
 import { Contact } from "src/@types/contacts";
 
 import { styles } from "./styles";
@@ -13,19 +16,28 @@ type ContactItemProps = {
   contact: Contact;
 };
 
-const ContactItem = ({ contact }: ContactItemProps) => {
+function ContactItem({ contact }: ContactItemProps) {
+  const navigation = useNavigation<RootStackNavigationProp>();
+
+  function navigateToContactDetails() {
+    navigation.navigate("ContactDetails", { contactId: contact.id.toString() });
+  }
+
   return (
-    <View style={styles.listItem}>
+    <Pressable
+      style={({ pressed }) => [styles.cardButton, pressed && styles.cardButtonActive]}
+      onPress={navigateToContactDetails}
+    >
       <Typography variant="body">{contact.name}</Typography>
       <Typography variant="caption">{contact.email}</Typography>
-    </View>
+    </Pressable>
   );
-};
+}
 
 const MemoizedContactItem = memo(ContactItem);
 
 export function FavoritesContacts() {
-  const { data: contacts, isLoading, isError } = useGetFavoritesContacts();
+  const { data: contacts, isLoading, isError, isFetching } = useGetFavoritesContacts();
 
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<Contact>) => <MemoizedContactItem contact={item} />,
@@ -50,6 +62,8 @@ export function FavoritesContacts() {
 
   return (
     <View style={styles.container}>
+      <SyncBar visible={isFetching} />
+
       <FlatList
         horizontal
         data={contacts}
