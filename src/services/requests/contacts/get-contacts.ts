@@ -3,9 +3,9 @@ import { delay } from "@utils/delay";
 import { contacts } from "./mocks";
 
 export async function getContacts() {
-  await delay(400);
+  await delay(1000);
 
-  console.log("Fetched contacts:");
+  console.log("Fetche contacts:");
 
   return contacts;
 }

@@ -1,3 +1,5 @@
+import { SyncBar } from "@components/sync-bar";
+import { useNetInfo } from "@react-native-community/netinfo";
 import { ReactNode } from "react";
 import {
   Keyboard,
@@ -26,6 +28,8 @@ export function DefaultLayout({
   hasHeader = true,
   touchWithoutFeedback = true,
 }: DefaultLayoutProps) {
+  const isOnline = useNetInfo().isConnected;
+
   const content = (
     <SafeAreaView
       style={[styles.mainContainer, style]}
@@ -35,6 +39,7 @@ export function DefaultLayout({
         style={[styles.container, layoutStyle]}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
+        <SyncBar visible={!isOnline} />
         {children}
       </KeyboardAvoidingView>
     </SafeAreaView>

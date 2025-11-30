@@ -14,6 +14,8 @@ const HeaderRight = () => <LogoutButton />;
 export function Home() {
   const navigation = useNavigation<RootStackNavigationProp>();
 
+  console.log("🚀 ~ Home rendered");
+
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,

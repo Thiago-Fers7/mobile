@@ -1,6 +1,6 @@
 import { Contact } from "src/@types/contacts";
 
-export const contacts: Contact[] = Array.from({ length: 50 }, (_, index) => ({
+export const contacts: Contact[] = Array.from({ length: 1000 }, (_, index) => ({
   id: String(index + 1),
   name: `Contact ${index + 1}`,
   email: `contact${index + 1}@example.com`,

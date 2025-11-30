@@ -10,6 +10,7 @@ import { MemoizedContactItem } from "./contact-item";
 import { styles } from "./styles";
 
 export function ContactList() {
+  console.log("🚀 ~ ContactList rendered");
   const { data: contacts, isLoading, isFetching, isError, refetch } = useGetContacts();
 
   const renderItem = useCallback(

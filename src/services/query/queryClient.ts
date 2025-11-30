@@ -1,10 +1,12 @@
-import { QueryClient } from "@tanstack/react-query";
-import { focusManager, onlineManager } from "@tanstack/react-query";
+import NetInfo from "@react-native-community/netinfo";
+import { focusManager, onlineManager, QueryClient } from "@tanstack/react-query";
 import { AppState, Platform } from "react-native";
 
-// Gerencia o status online/offline
-onlineManager.setOnline(true);
-// (Você pode adicionar um listener de NetInfo aqui se quiser)
+onlineManager.setEventListener((setOnline) => {
+  return NetInfo.addEventListener((state) => {
+    setOnline(!!state.isConnected);
+  });
+});
 
 // Gerencia o foco da tela/app
 focusManager.setFocused(true);
@@ -18,9 +20,9 @@ if (Platform.OS !== "web") {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: "always",
       staleTime: 1000 * 60 * 5, // 5 minutos
-      retry: 3,
+      gcTime: 1000 * 60 * 30, // 30 minutos
+      retry: 2,
     },
   },
 });
