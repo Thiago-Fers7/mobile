@@ -1,35 +1,25 @@
-import { Button } from "@components/button";
 import { DefaultLayout } from "@components/layouts/default-layout";
 import { Typography } from "@components/typography";
-import { useAuth } from "@contexts/AuthContext";
-import { contactsKeys } from "@hooks/queries/contacts/contactsKeys";
-import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
-import { View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackNavigationProp } from "@routes/types";
+import { useEffect } from "react";
 
 import { ContactList } from "./components/contact-list";
 import { FavoritesContacts } from "./components/favorites-contacts";
+import { LogoutButton } from "./components/logout-button";
 import { styles } from "./styles";
 
+const HeaderRight = () => <LogoutButton />;
+
 export function Home() {
-  const { signOut } = useAuth();
-  const queryClient = useQueryClient();
+  const navigation = useNavigation<RootStackNavigationProp>();
 
-  const [isLoadingSignOut, setIsLoadingSignOut] = useState(false);
-
-  async function handleLogout() {
-    setIsLoadingSignOut(true);
-
-    await signOut();
-
-    queryClient.removeQueries({
-      queryKey: contactsKeys.all,
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerRight: HeaderRight,
     });
-
-    setIsLoadingSignOut(false);
-  }
-
-  const logoutText = isLoadingSignOut ? "Saindo..." : "Sair";
+  }, [navigation]);
 
   return (
     <DefaultLayout>
@@ -39,17 +29,11 @@ export function Home() {
 
       <FavoritesContacts />
 
-      <Typography variant="heading" style={styles.title}>
+      <Typography variant="heading" style={[styles.title]}>
         Todos os contatos
       </Typography>
 
       <ContactList />
-
-      <View style={styles.footer}>
-        <Button onPress={handleLogout} disabled={isLoadingSignOut}>
-          {logoutText}
-        </Button>
-      </View>
     </DefaultLayout>
   );
 }

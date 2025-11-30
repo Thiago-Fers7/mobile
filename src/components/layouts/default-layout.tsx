@@ -15,6 +15,7 @@ type DefaultLayoutProps = {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
   layoutStyle?: StyleProp<ViewStyle>;
+  hasHeader?: boolean;
   touchWithoutFeedback?: boolean;
 };
 
@@ -22,10 +23,14 @@ export function DefaultLayout({
   children,
   style,
   layoutStyle,
+  hasHeader = true,
   touchWithoutFeedback = true,
 }: DefaultLayoutProps) {
   const content = (
-    <SafeAreaView style={[styles.mainContainer, style]}>
+    <SafeAreaView
+      style={[styles.mainContainer, style]}
+      edges={hasHeader ? ["bottom", "left", "right"] : undefined}
+    >
       <KeyboardAvoidingView
         style={[styles.container, layoutStyle]}
         behavior={Platform.OS === "ios" ? "padding" : "height"}

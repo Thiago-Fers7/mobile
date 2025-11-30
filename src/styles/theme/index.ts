@@ -55,7 +55,7 @@ export const theme = {
     s32: 32,
   },
   textVariants: {
-    heading: { fontSize: 24, fontWeight: "bold", color: colors.neutral[900] },
+    heading: { fontSize: 24, color: colors.neutral[900] },
     body: { fontSize: 16, color: colors.neutral[900] },
     caption: { fontSize: 12, color: "#666" },
   },

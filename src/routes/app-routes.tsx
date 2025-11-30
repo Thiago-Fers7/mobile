@@ -13,12 +13,17 @@ export function AppRoutes() {
   const headerOptions: NativeStackNavigationOptions = {
     headerShown: true,
     headerBackButtonMenuEnabled: true,
-    headerBackTitle: "Voltar",
+    headerBackButtonDisplayMode: "minimal",
   };
 
   return (
     <Stack.Navigator initialRouteName="Home" screenOptions={headerOptions}>
-      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: true, title: "Meus Contatos" }}
+      />
+
       <Stack.Screen
         name="ContactDetails"
         component={ContactDetails}
