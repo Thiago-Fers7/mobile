@@ -21,11 +21,8 @@ export function ContactList() {
   function getItemLayout(_: unknown, index: number) {
     return {
       index,
-      length:
-        styles.cardButton.height + styles.cardButton.padding * 2 + styles.contentContainer.gap,
-      offset:
-        (styles.cardButton.height + styles.cardButton.padding * 2 + styles.contentContainer.gap) *
-        index,
+      length: styles.cardButton.height + styles.contentContainer.gap,
+      offset: (styles.cardButton.height + styles.contentContainer.gap) * index,
     };
   }
 
