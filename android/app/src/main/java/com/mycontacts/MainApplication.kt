@@ -1,4 +1,4 @@
-package com.mobile
+package com.mycontacts
 
 import android.app.Application
 import com.facebook.react.PackageList
