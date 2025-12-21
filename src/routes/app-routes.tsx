@@ -2,6 +2,7 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from "@react-navigation/native-stack";
+import { AllContacts } from "@screens/all-contacts";
 import { ContactDetails } from "@screens/contact-details";
 import { Home } from "@screens/home";
 
@@ -14,6 +15,7 @@ export function AppRoutes() {
     headerShown: true,
     headerBackButtonMenuEnabled: true,
     headerBackButtonDisplayMode: "minimal",
+    headerTitleAlign: "center",
   };
 
   return (
@@ -22,6 +24,12 @@ export function AppRoutes() {
         name="Home"
         component={Home}
         options={{ headerShown: true, title: "Meus Contatos" }}
+      />
+
+      <Stack.Screen
+        name="AllContacts"
+        component={AllContacts}
+        options={{ headerShown: true, title: "Todos os contatos" }}
       />
 
       <Stack.Screen

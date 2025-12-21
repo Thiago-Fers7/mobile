@@ -1,11 +1,10 @@
 import { delay } from "@utils/delay";
 
-import { contacts } from "./mocks";
-
 export async function getContacts() {
   await delay(1000);
 
-  console.log("Fetche contacts:");
+  const response = await fetch("http://192.168.1.7:3000/contacts");
+  const contacts = await response.json();
 
   return contacts;
 }

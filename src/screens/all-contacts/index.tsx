@@ -1,15 +1,23 @@
 import { EmptyList } from "@components/empty-list";
 import { ErrorSection } from "@components/error-section";
+import { DefaultLayout } from "@components/layouts/default-layout";
 import { LoadingSection } from "@components/loading-section";
+import { Typography } from "@components/typography";
 import { useGetContacts } from "@hooks/queries/contacts/useGetContacts";
-import { useCallback } from "react";
-import { FlatList, ListRenderItemInfo, View } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  InteractionManager,
+  ListRenderItemInfo,
+  View,
+} from "react-native";
 import type { Contact } from "src/@types/contacts";
 
 import { MemoizedContactItem } from "./contact-item";
 import { styles } from "./styles";
 
-export function ContactList() {
+export function AllContacts() {
   console.log("🚀 ~ ContactList rendered");
   const { data: contacts, isLoading, isFetching, isError, refetch } = useGetContacts();
 
@@ -26,6 +34,28 @@ export function ContactList() {
     };
   }
 
+  // esse trecho de código faz com que a tela só seja renderizada
+  // depois que a animação de navegação terminar
+  // const [isReady, setIsReady] = useState(false);
+
+  // useEffect(() => {
+  //   // Essa função só roda depois que a animação de navegação terminar
+  //   const task = InteractionManager.runAfterInteractions(async () => {
+  //     // await new Promise((resolve) => setTimeout(resolve, 100));
+  //     setIsReady(true);
+  //   });
+
+  //   return () => task.cancel(); // Boa prática de limpeza
+  // }, []);
+
+  // if (!isReady) {
+  //   // Renderize algo muito leve aqui para não travar a transição
+  //   console.log("🚀 ~ Navigation animation in progress...");
+  //   return null;
+  // }
+
+  // final render após a animação de navegação
+
   if (isLoading) {
     return <LoadingSection message="Carregando contatos..." />;
   }
@@ -41,7 +71,7 @@ export function ContactList() {
   }
 
   return (
-    <View style={styles.container}>
+    <DefaultLayout layoutStyle={styles.container}>
       <FlatList
         data={contacts}
         keyExtractor={(item) => item.id.toString()}
@@ -52,6 +82,6 @@ export function ContactList() {
         refreshing={isFetching}
         onRefresh={refetch}
       />
-    </View>
+    </DefaultLayout>
   );
 }

@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    paddingHorizontal: theme.spacing.s16,
+    padding: theme.spacing.s16,
     gap: theme.spacing.s12,
   },
   cardButton: {

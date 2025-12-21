@@ -1,7 +1,11 @@
-import { contacts } from "./mocks";
+import { delay } from "@utils/delay";
 
-export function getContactById(contactId: string) {
-  console.log(`Fetched contact by id: ${contactId}`);
+export async function getContactById(contactId: string) {
+  await delay(1000);
 
-  return contacts.find((contact) => contact.id.toString() === contactId);
+  const response = await fetch("http://192.168.1.7:3000/contacts/" + contactId);
+  const contact = await response.json();
+  console.log("🚀 ~ contact:", contact);
+
+  return contact;
 }
