@@ -20,7 +20,14 @@ module.exports = {
           '@assets': './src/assets',
           '@types': './src/@types',
           '@theme': './src/styles/theme',
+          '@database': './src/database',
         },
+      },
+    ],
+    [
+      'inline-import',
+      {
+        extensions: ['.sql'],
       },
     ],
   ],

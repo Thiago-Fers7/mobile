@@ -37,9 +37,7 @@ function ContactItem({ contact }: ContactItemProps) {
 const MemoizedContactItem = memo(ContactItem);
 
 export function FavoritesContacts() {
-  const { data: contacts, isLoading, isError, isPaused, isFetching } = useGetFavoritesContacts();
-  console.log("🚀 ~ isPaused:", isPaused);
-  console.log("🚀 ~ isError:", isError);
+  const { data: contacts, isLoading, isError, isFetching } = useGetFavoritesContacts();
 
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<Contact>) => <MemoizedContactItem contact={item} />,

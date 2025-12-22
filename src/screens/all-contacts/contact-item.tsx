@@ -22,7 +22,7 @@ function ContactItem({ contact }: ContactItemProps) {
   }
 
   function handleAddFavorite() {
-    mutate({ contactId: contact.id, isFavorite: !contact.favorite });
+    mutate({ contactId: contact.id, isFavorite: !contact.isFavorite });
   }
 
   return (
@@ -42,7 +42,7 @@ function ContactItem({ contact }: ContactItemProps) {
       >
         {isPending && <ActivityIndicator />}
 
-        {!isPending && <Star color={contact.favorite ? "#fdd700ff" : "#898989"} size={24} />}
+        {!isPending && <Star color={contact.isFavorite ? "#fdd700ff" : "#898989"} size={24} />}
       </Pressable>
     </Pressable>
   );

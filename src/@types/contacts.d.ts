@@ -1,6 +1,12 @@
+import { contacts } from "src/database/schema";
+
 export type Contact = {
-  id: string;
+  id: number;
   name: string;
-  email: string;
-  favorite?: boolean;
+  email: string | null;
+  isFavorite: number;
+  phone: string;
+  avatar: string | null;
 };
+
+export type LocalContact = typeof contacts.$inferInsert;

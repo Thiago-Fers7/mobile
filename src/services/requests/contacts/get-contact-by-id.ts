@@ -1,11 +1,26 @@
 import { delay } from "@utils/delay";
+import { eq } from "drizzle-orm/";
+
+import { db } from "../../../database/client";
+import { contacts } from "../../../database/schema";
 
 export async function getContactById(contactId: string) {
-  await delay(1000);
+  await delay();
 
-  const response = await fetch("http://192.168.1.7:3000/contacts/" + contactId);
-  const contact = await response.json();
-  console.log("🚀 ~ contact:", contact);
+  const contact = await db
+    .select({
+      id: contacts.id,
+      name: contacts.name,
+      email: contacts.email,
+      isFavorite: contacts.is_favorite,
+      phone: contacts.phone,
+      avatar: contacts.avatar,
+    })
+    .from(contacts)
+    .where(eq(contacts.id, Number(contactId)))
+    .limit(1);
 
-  return contact;
+  const [firstContact] = contact;
+
+  return firstContact;
 }

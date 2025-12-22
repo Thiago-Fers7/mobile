@@ -57,6 +57,7 @@ module.exports = {
     // Regra do React Native que você desativou
     "react-native/no-inline-styles": "off",
     "react/jsx-max-props-per-line": ["error", { "maximum": 3 }],
+    "@typescript-eslint/no-unused-vars": ["warn"],
   },
 
   // Padrões de arquivos a serem ignorados pelo ESLint

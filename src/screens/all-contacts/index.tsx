@@ -2,23 +2,15 @@ import { EmptyList } from "@components/empty-list";
 import { ErrorSection } from "@components/error-section";
 import { DefaultLayout } from "@components/layouts/default-layout";
 import { LoadingSection } from "@components/loading-section";
-import { Typography } from "@components/typography";
 import { useGetContacts } from "@hooks/queries/contacts/useGetContacts";
-import { useCallback, useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  InteractionManager,
-  ListRenderItemInfo,
-  View,
-} from "react-native";
+import { useCallback } from "react";
+import { FlatList, ListRenderItemInfo, StatusBar } from "react-native";
 import type { Contact } from "src/@types/contacts";
 
 import { MemoizedContactItem } from "./contact-item";
 import { styles } from "./styles";
 
 export function AllContacts() {
-  console.log("🚀 ~ ContactList rendered");
   const { data: contacts, isLoading, isFetching, isError, refetch } = useGetContacts();
 
   const renderItem = useCallback(

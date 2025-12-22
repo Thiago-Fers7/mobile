@@ -1,7 +1,7 @@
 import {
-  addFavoriteContact,
+  favoriteContact,
   FavoriteContactParams,
-} from "@services/requests/contacts/add-favorite-contact";
+} from "@services/requests/contacts/favorite-contact";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Contact } from "src/@types/contacts";
 
@@ -11,7 +11,7 @@ export function useAddFavoriteContact() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<Contact | null, unknown, FavoriteContactParams>({
-    mutationFn: addFavoriteContact,
+    mutationFn: favoriteContact,
     onSuccess: (updatedContact) => {
       queryClient.setQueryData<Contact[]>(contactsKeys.all, (oldContactsList) => {
         if (!oldContactsList) return oldContactsList;

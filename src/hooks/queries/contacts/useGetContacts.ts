@@ -7,7 +7,7 @@ import { contactsKeys } from "./contactsKeys";
 
 export function useGetContacts(options?: UseQueryHookOptions<Contact[]>) {
   const query = useQuery({
-    queryKey: contactsKeys.persistAll(),
+    queryKey: contactsKeys.all,
     queryFn: getContacts,
     ...options,
   });

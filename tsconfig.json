@@ -14,7 +14,8 @@
       "@hooks/*": ["./src/hooks/*"],
       "@assets/*": ["./src/assets/*"],
       "@types/*": ["./src/@types/*"],
-      "@theme": ["./src/styles/theme"]
+      "@theme": ["./src/styles/theme"],
+      "@database/*": ["./src/database/*"]
     },
     "types": ["react-native"]
   }
