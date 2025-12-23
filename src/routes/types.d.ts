@@ -5,6 +5,8 @@ export type RootStackParamList = {
   Home: undefined;
   AllContacts: undefined;
   ContactDetails: { contactId: string };
+  CreateContact: undefined;
+  FavoritesContacts: undefined;
 };
 
 export type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;

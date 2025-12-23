@@ -22,6 +22,14 @@ export function FooterButtons() {
     navigation.navigate("AllContacts");
   }
 
+  function handleNavigateToCreateContact() {
+    navigation.navigate("CreateContact");
+  }
+
+  function handleNavigateToFavoritesContacts() {
+    navigation.navigate("FavoritesContacts");
+  }
+
   return (
     <View style={styles.buttonsContainer}>
       <Button
@@ -35,17 +43,18 @@ export function FooterButtons() {
         <ButtonText>Contatos</ButtonText>
       </Button>
 
-      <Button onPress={handleNavigateToAllContacts} style={styles.centralButton}>
+      <Button onPress={handleNavigateToCreateContact} style={styles.centralButton}>
         <Plus size={20} color="#FFFFFF" />
       </Button>
 
       <Button
-        onPress={handleNavigateToAllContacts}
+        onPress={handleNavigateToFavoritesContacts}
         containerStyle={styles.lateralButtonContainer}
         style={styles.lateralButton}
         variant="tertiary"
       >
         <StarIcon size={20} color={theme.colors.primary[500]} />
+
         <ButtonText>Favoritos</ButtonText>
       </Button>
     </View>

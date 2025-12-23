@@ -1,5 +1,6 @@
 import { EmptyList } from "@components/empty-list";
 import { ErrorSection } from "@components/error-section";
+import { DefaultLayout } from "@components/layouts/default-layout";
 import { LoadingSection } from "@components/loading-section";
 import { SyncBar } from "@components/sync-bar";
 import { Typography } from "@components/typography";
@@ -61,11 +62,10 @@ export function FavoritesContacts() {
   }
 
   return (
-    <View style={styles.container}>
+    <DefaultLayout>
       <SyncBar visible={isFetching} />
 
       <FlatList
-        horizontal
         data={contacts}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.contentContainer}
@@ -73,6 +73,6 @@ export function FavoritesContacts() {
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
       />
-    </View>
+    </DefaultLayout>
   );
 }

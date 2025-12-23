@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackNavigationProp } from "@routes/types";
 import { useEffect } from "react";
 
-import { FavoritesContacts } from "./components/favorites-contacts";
 import { FooterButtons } from "./components/footer-buttons";
 import { LogoutButton } from "./components/logout-button";
 import { styles } from "./styles";
@@ -24,10 +23,8 @@ export function Home() {
   return (
     <DefaultLayout>
       <Typography variant="heading" style={styles.title}>
-        Favoritos
+        Aniversariantes do Mês
       </Typography>
-
-      <FavoritesContacts />
 
       <FooterButtons />
     </DefaultLayout>

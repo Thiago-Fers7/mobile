@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    height: 150,
     position: "relative",
   },
   contentContainer: {
@@ -13,7 +12,6 @@ export const styles = StyleSheet.create({
   },
   cardButton: {
     padding: 12,
-    width: 220,
     borderWidth: 1,
     borderColor: theme.colors.neutral[300],
     borderRadius: 8,

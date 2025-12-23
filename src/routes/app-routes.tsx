@@ -4,6 +4,8 @@ import {
 } from "@react-navigation/native-stack";
 import { AllContacts } from "@screens/all-contacts";
 import { ContactDetails } from "@screens/contact-details";
+import { CreateContact } from "@screens/create-contact";
+import { FavoritesContacts } from "@screens/favorites-contacts";
 import { Home } from "@screens/home";
 
 import { RootStackParamList } from "./types";
@@ -36,6 +38,18 @@ export function AppRoutes() {
         name="ContactDetails"
         component={ContactDetails}
         options={{ headerShown: true, title: "Detalhes do contato" }}
+      />
+
+      <Stack.Screen
+        name="CreateContact"
+        component={CreateContact}
+        options={{ headerShown: true, title: "Criar contato" }}
+      />
+
+      <Stack.Screen
+        name="FavoritesContacts"
+        component={FavoritesContacts}
+        options={{ headerShown: true, title: "Contatos Favoritos" }}
       />
     </Stack.Navigator>
   );
