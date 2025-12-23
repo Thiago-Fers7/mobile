@@ -1,0 +1,1 @@
+ALTER TABLE `contacts` ADD `birth_date` integer;

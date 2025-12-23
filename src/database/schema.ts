@@ -19,4 +19,6 @@ export const contacts = sqliteTable("contacts", {
   sync_status: text("sync_status")
     .notNull()
     .$default(() => "pending"),
+
+  birth_date: integer("birth_date", { mode: "timestamp" }),
 });
