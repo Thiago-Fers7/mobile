@@ -31,14 +31,42 @@ const buttonSizes = StyleSheet.create({
 
 export type ButtonSize = keyof typeof buttonSizes;
 
+export const buttonVariants = StyleSheet.create({
+  primary: {
+    backgroundColor: theme.colors.primary[500],
+  },
+  secondary: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: theme.colors.primary[500],
+  },
+  tertiary: {
+    backgroundColor: "transparent",
+  },
+});
+
+export type ButtonVariant = keyof typeof buttonVariants;
+
+export const labelColors = StyleSheet.create({
+  primary: {
+    color: theme.colors.neutral[100],
+  },
+  secondary: {
+    color: theme.colors.primary[500],
+  },
+  tertiary: {
+    color: theme.colors.primary[500],
+  },
+});
+
 export const styles = StyleSheet.create({
   buttonContainer: {
     overflow: "hidden",
     borderRadius: 8,
   },
   button: {
-    backgroundColor: theme.colors.primary[500],
     width: "100%",
+    borderRadius: 8,
   },
   buttonActive: {
     opacity: 0.7,
@@ -47,7 +75,6 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.neutral[400],
   },
   buttonLabel: {
-    color: theme.colors.neutral[100],
     textAlign: "center",
   },
   buttonLabelDisabled: {
