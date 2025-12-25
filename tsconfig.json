@@ -17,6 +17,7 @@
       "@theme": ["./src/styles/theme"],
       "@database/*": ["./src/database/*"]
     },
-    "types": ["react-native"]
+    "types": ["react-native"],
+    "strict": true,
   }
 }

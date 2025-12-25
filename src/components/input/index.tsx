@@ -30,9 +30,9 @@ export function Input({ ref, ...props }: InputProps) {
   return (
     <NativeTextInput
       ref={ref}
-      style={[styles.input, isFocused && styles.inputFocused]}
       placeholderTextColor="#afafafff"
       {...props}
+      style={[styles.input, isFocused && styles.inputFocused, props.style]}
       onFocus={onFocus}
       onBlur={onBlur}
     />

@@ -43,7 +43,7 @@ export function AppRoutes() {
       <Stack.Screen
         name="CreateContact"
         component={CreateContact}
-        options={{ headerShown: true, title: "Criar contato" }}
+        options={{ headerShown: true, title: "Adicionar contato" }}
       />
 
       <Stack.Screen

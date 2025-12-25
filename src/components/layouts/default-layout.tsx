@@ -46,6 +46,7 @@ export function DefaultLayout({
   );
 
   if (touchWithoutFeedback) {
+    console.log("touchWithoutFeedback is true");
     return content;
   }
 
