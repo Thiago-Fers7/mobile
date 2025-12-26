@@ -2,15 +2,17 @@ import { Input, TextInputRef } from "@components/input";
 import React, { RefObject } from "react";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import { Text, TextInputProps, View } from "react-native";
+import { Mask } from "react-native-mask-input";
 
 import { styles } from "./styles";
 
-interface ControlledInputProps<T extends FieldValues> extends TextInputProps {
+type ControlledInputProps<T extends FieldValues> = TextInputProps & {
   control: Control<T>;
   name: Path<T>;
   error?: string;
   ref?: RefObject<TextInputRef | null>;
-}
+  mask?: Mask;
+};
 
 export function ControlledInput<T extends FieldValues>({
   control,
@@ -31,6 +33,7 @@ export function ControlledInput<T extends FieldValues>({
             onBlur={onBlur}
             value={value}
             ref={ref}
+            mask={textInputProps.mask}
             {...textInputProps}
           />
         )}

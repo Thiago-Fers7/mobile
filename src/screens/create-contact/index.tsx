@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateContact } from "@hooks/queries/contacts/useCreateContact";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackNavigationProp } from "@routes/types";
+import { PHONE_MASK } from "@utils/masks";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, ScrollView, View } from "react-native";
@@ -122,6 +123,7 @@ export function CreateContact() {
                 keyboardType="phone-pad"
                 error={errors.phone?.message}
                 ref={phoneInputRef}
+                mask={PHONE_MASK}
               />
             </View>
 

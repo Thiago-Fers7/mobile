@@ -30,7 +30,7 @@ export function ControlledDatePicker({ control, errorMessage }: DatePickerProps)
             name="dateOfBirth"
             error={errorMessage}
             value={value ? value.toLocaleDateString() : ""}
-            placeholder="Selecione a data de nascimento"
+            placeholder="Selecione"
             onKeyPress={() => {}}
             onFocus={() => {
               handleOpen();
