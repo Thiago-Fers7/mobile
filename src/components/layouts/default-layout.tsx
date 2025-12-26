@@ -1,12 +1,14 @@
 import { SyncBar } from "@components/sync-bar";
 import { useNetInfo } from "@react-native-community/netinfo";
-import { ReactNode } from "react";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { ElementType, ReactNode } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
   StyleProp,
   TouchableWithoutFeedback,
+  View,
   ViewStyle,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -29,30 +31,26 @@ export function DefaultLayout({
   touchWithoutFeedback = true,
 }: DefaultLayoutProps) {
   const isOnline = useNetInfo().isConnected;
+  const headerHeight = useHeaderHeight();
 
-  const content = (
-    <SafeAreaView
-      style={[styles.mainContainer, style]}
-      edges={hasHeader ? ["bottom", "left", "right"] : undefined}
-    >
-      <KeyboardAvoidingView
-        style={[styles.container, layoutStyle]}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <SyncBar visible={!isOnline} />
-        {children}
-      </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
+  const Wrapper = (touchWithoutFeedback ? TouchableWithoutFeedback : View) as ElementType;
 
-  if (touchWithoutFeedback) {
-    console.log("touchWithoutFeedback is true");
-    return content;
-  }
+  const verticalOffset = hasHeader ? headerHeight : 0;
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      {content}
-    </TouchableWithoutFeedback>
+    <Wrapper {...(touchWithoutFeedback ? { onPress: Keyboard.dismiss, accessible: false } : {})}>
+      <SafeAreaView style={[styles.mainContainer, style]} edges={["bottom", "left", "right"]}>
+        <SyncBar visible={!isOnline} />
+
+        <KeyboardAvoidingView
+          style={[styles.container, layoutStyle]}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          keyboardVerticalOffset={verticalOffset}
+          enabled
+        >
+          {children}
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </Wrapper>
   );
 }

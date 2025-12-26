@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   categoriesContainer: {
     maxHeight: 40,
+    minHeight: 40,
     alignSelf: "center",
   },
   categoriesContentContainer: {

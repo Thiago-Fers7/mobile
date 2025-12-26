@@ -1,5 +1,6 @@
 import { ControlledInput } from "@components/controlled-input";
-import { useState } from "react";
+import { TextInputRef } from "@components/input";
+import { useRef, useState } from "react";
 import { Control, Controller } from "react-hook-form";
 import NativeDatePicker from "react-native-date-picker";
 
@@ -12,6 +13,11 @@ type DatePickerProps = {
 
 export function ControlledDatePicker({ control, errorMessage }: DatePickerProps) {
   const [open, setOpen] = useState(false);
+  const inputRef = useRef<TextInputRef>(null);
+
+  function handleOpen() {
+    setOpen(true);
+  }
 
   return (
     <Controller
@@ -24,9 +30,14 @@ export function ControlledDatePicker({ control, errorMessage }: DatePickerProps)
             name="dateOfBirth"
             error={errorMessage}
             value={value ? value.toLocaleDateString() : ""}
-            onPress={() => setOpen(true)}
             placeholder="Selecione a data de nascimento"
-            editable={false}
+            onKeyPress={() => {}}
+            onFocus={() => {
+              handleOpen();
+              inputRef.current?.blur();
+            }}
+            showSoftInputOnFocus={false}
+            ref={inputRef}
           />
 
           <NativeDatePicker

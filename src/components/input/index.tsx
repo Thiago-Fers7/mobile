@@ -8,8 +8,10 @@ import {
 
 import { styles } from "./styles";
 
+export type TextInputRef = NativeTextInput;
+
 type InputProps = NativeTextInputProps & {
-  ref?: RefObject<NativeTextInput | null>;
+  ref?: RefObject<TextInputRef | null>;
 };
 
 export function Input({ ref, ...props }: InputProps) {

@@ -1,5 +1,5 @@
-import { Input } from "@components/input";
-import React from "react";
+import { Input, TextInputRef } from "@components/input";
+import React, { RefObject } from "react";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import { Text, TextInputProps, View } from "react-native";
 
@@ -7,14 +7,16 @@ import { styles } from "./styles";
 
 interface ControlledInputProps<T extends FieldValues> extends TextInputProps {
   control: Control<T>;
-  name: Path<T>; // Garante que o nome seja uma chave válida do schema
+  name: Path<T>;
   error?: string;
+  ref?: RefObject<TextInputRef | null>;
 }
 
 export function ControlledInput<T extends FieldValues>({
   control,
   name,
   error,
+  ref,
   ...textInputProps
 }: ControlledInputProps<T>) {
   return (
@@ -26,11 +28,9 @@ export function ControlledInput<T extends FieldValues>({
           <Input
             style={[error && styles.inputError]}
             onChangeText={onChange}
-            onBlur={(e) => {
-              console.log("onBlur called");
-              onBlur();
-            }}
+            onBlur={onBlur}
             value={value}
+            ref={ref}
             {...textInputProps}
           />
         )}
