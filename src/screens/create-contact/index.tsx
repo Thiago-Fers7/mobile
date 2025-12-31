@@ -11,7 +11,8 @@ import { RootStackNavigationProp } from "@routes/types";
 import { PHONE_MASK } from "@utils/masks";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { Alert, ScrollView, View } from "react-native";
+import { Alert, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { z } from "zod/v3";
 
 import { Categories } from "./components/categories";
@@ -20,7 +21,7 @@ import { styles } from "./styles";
 
 export const createContactSchema = z.object({
   name: z.string().min(2, "O nome é curto demais"),
-  phone: z.string().min(10, "Número de telefone inválido"),
+  phone: z.string().min(14, "Número de telefone inválido"),
   email: z.string().email("Digite um e-mail válido").optional().or(z.literal("")),
   dateOfBirth: z.date().max(new Date(), "Data de nascimento inválida").optional(),
   categories: z.array(z.string()).optional(),
@@ -44,6 +45,7 @@ export function CreateContact() {
       phone: "",
       email: "",
       dateOfBirth: undefined,
+      categories: [],
     },
     resolver: zodResolver(createContactSchema),
     mode: "onBlur",
@@ -72,7 +74,11 @@ export function CreateContact() {
 
   return (
     <DefaultLayout>
-      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+        bottomOffset={20}
+      >
         <View style={styles.formContainer}>
           <UserAvatar name={name} size={120} style={styles.photoContainer} />
 
@@ -106,6 +112,9 @@ export function CreateContact() {
               name="email"
               placeholder="Ex: joao.silva@email.com"
               keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+              autoComplete="email"
               error={errors.email?.message}
               ref={emailInputRef}
               returnKeyType="next"
@@ -137,7 +146,7 @@ export function CreateContact() {
         <Button style={{ marginTop: 32 }} onPress={handleSubmit(onSubmit)} disabled={isSubmitting}>
           {isSubmitting ? "Salvando..." : "Salvar contato"}
         </Button>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </DefaultLayout>
   );
 }

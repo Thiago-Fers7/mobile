@@ -5,7 +5,8 @@ import { Switch } from "@components/switch";
 import { Typography } from "@components/typography";
 import { useAuth } from "@contexts/AuthContext";
 import { useRef, useState } from "react";
-import { ScrollView, TextInput } from "react-native";
+import { TextInput } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 import { styles } from "./styles";
 
@@ -52,7 +53,11 @@ export function LoginScreen() {
 
   return (
     <DefaultLayout layoutStyle={styles.container} touchWithoutFeedback={true}>
-      <ScrollView contentContainerStyle={styles.formContainer} showsVerticalScrollIndicator={false}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.formContainer}
+        showsVerticalScrollIndicator={false}
+        bottomOffset={20}
+      >
         <Typography variant="heading" style={styles.headerTitle}>
           Entre com sua conta
         </Typography>
@@ -81,7 +86,7 @@ export function LoginScreen() {
         </Button>
 
         <Switch />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </DefaultLayout>
   );
 }
