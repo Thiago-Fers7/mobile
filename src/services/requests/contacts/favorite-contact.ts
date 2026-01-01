@@ -4,21 +4,19 @@ import { delay } from "@utils/delay";
 import { eq } from "drizzle-orm";
 
 export type FavoriteContactParams = {
-  contactId: number;
+  contactId: string;
   isFavorite: boolean;
 };
 
 export async function favoriteContact({ contactId, isFavorite }: FavoriteContactParams) {
   await delay();
 
-  console.log(`Updated favorite status for contact id: ${contactId} to ${isFavorite}`);
-
   const updatedContact = await db
     .update(contacts)
     .set({
       is_favorite: isFavorite ? 1 : 0,
     })
-    .where(eq(contacts.id, Number(contactId)))
+    .where(eq(contacts.id, contactId))
     .returning({
       id: contacts.id,
       name: contacts.name,
@@ -26,6 +24,7 @@ export async function favoriteContact({ contactId, isFavorite }: FavoriteContact
       isFavorite: contacts.is_favorite,
       phone: contacts.phone,
       avatar: contacts.avatar,
+      birthDate: contacts.birth_date,
     });
 
   if (updatedContact.length === 0) {
@@ -33,7 +32,6 @@ export async function favoriteContact({ contactId, isFavorite }: FavoriteContact
   }
 
   const contact = updatedContact[0];
-  console.log("🚀 ~ contact:", contact);
 
   return contact;
 }

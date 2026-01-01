@@ -1,7 +1,8 @@
 import { db } from "@database/client";
-import { contacts } from "@database/schema";
+import { contacts, contactsCategories } from "@database/schema";
 import { CreateContactFormData } from "@screens/create-contact";
-import { LocalContact } from "@types/contacts";
+import { ContactCategoriesRelations } from "@typings/categories";
+import { LocalContact } from "@typings/contacts";
 import { delay } from "@utils/delay";
 import { eq } from "drizzle-orm";
 
@@ -13,7 +14,7 @@ type CreateContactResponse =
   | {
       isSuccess: true;
       message: string;
-      data: number;
+      data: string;
     }
   | {
       isSuccess: false;
@@ -23,7 +24,7 @@ type CreateContactResponse =
 export async function createContact(data: CreateContactParams): Promise<CreateContactResponse> {
   await delay();
 
-  const dataToInsert: LocalContact = {
+  const newContactData: LocalContact = {
     name: data.name,
     email: data.email || null,
     phone: data.phone,
@@ -40,13 +41,35 @@ export async function createContact(data: CreateContactParams): Promise<CreateCo
     };
   }
 
-  const [createdContactId] = await db.insert(contacts).values(dataToInsert).returning({
-    id: contacts.id,
-  });
+  const categoriesIds = data.categories || [];
 
-  return {
-    isSuccess: true,
-    message: "Contato criado com sucesso.",
-    data: createdContactId.id,
-  };
+  try {
+    const createdContactId = await db.transaction(async (tx) => {
+      const [createdContact] = await tx.insert(contacts).values(newContactData).returning({
+        id: contacts.id,
+      });
+
+      if (categoriesIds.length > 0) {
+        const categoryLinks: ContactCategoriesRelations[] = categoriesIds.map((categoryId) => ({
+          contact_id: createdContact.id,
+          category_id: categoryId,
+        }));
+
+        await tx.insert(contactsCategories).values(categoryLinks);
+      }
+
+      return createdContact.id;
+    });
+
+    return {
+      isSuccess: true,
+      message: "Contato criado com sucesso.",
+      data: createdContactId,
+    };
+  } catch (error) {
+    return {
+      isSuccess: false,
+      message: "Não foi possível criar o contato. Tente novamente mais tarde.",
+    };
+  }
 }

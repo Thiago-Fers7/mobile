@@ -2,10 +2,10 @@ import { Typography } from "@components/typography";
 import { useAddFavoriteContact } from "@hooks/queries/contacts/useAddFavoriteContact";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackNavigationProp } from "@routes/types";
+import { Contact } from "@typings/contacts";
 import { Star } from "lucide-react-native";
 import { memo } from "react";
 import { ActivityIndicator, Pressable, View } from "react-native";
-import { Contact } from "src/@types/contacts";
 
 import { styles } from "./styles";
 

@@ -3,7 +3,7 @@ import {
   FavoriteContactParams,
 } from "@services/requests/contacts/favorite-contact";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Contact } from "src/@types/contacts";
+import { Contact } from "@typings/contacts";
 
 import { contactsKeys } from "./contactsKeys";
 

@@ -55,6 +55,8 @@ export function CreateContact() {
   const phoneInputRef = useRef<TextInputRef>(null);
 
   async function onSubmit(data: CreateContactFormData) {
+    console.log(data);
+
     const response = await createContactAsync({
       ...data,
       createdBy: "local-user-id",

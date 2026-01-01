@@ -12,6 +12,7 @@ export async function getFavoritesContacts() {
       name: contacts.name,
       email: contacts.email,
       isFavorite: contacts.is_favorite,
+      birthDate: contacts.birth_date,
       phone: contacts.phone,
       avatar: contacts.avatar,
     })

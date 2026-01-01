@@ -1,5 +1,5 @@
+import { User } from "@typings/user";
 import { delay } from "@utils/delay";
-import { User } from "src/@types/user";
 
 export async function getUser(): Promise<User> {
   await delay(300);

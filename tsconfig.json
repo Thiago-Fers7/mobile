@@ -13,7 +13,7 @@
       "@contexts/*": ["./src/contexts/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@assets/*": ["./src/assets/*"],
-      "@types/*": ["./src/@types/*"],
+      "@typings/*": ["./src/@typings/*"],
       "@theme": ["./src/styles/theme"],
       "@database/*": ["./src/database/*"]
     },

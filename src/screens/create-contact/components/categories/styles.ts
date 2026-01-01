@@ -18,4 +18,10 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: theme.colors.neutral[300],
   },
+  skeletonCategoryItem: {
+    width: 80,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: theme.colors.neutral[200],
+  },
 });

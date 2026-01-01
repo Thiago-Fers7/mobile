@@ -17,7 +17,7 @@ export async function getContactById(contactId: string) {
       avatar: contacts.avatar,
     })
     .from(contacts)
-    .where(eq(contacts.id, Number(contactId)))
+    .where(eq(contacts.id, contactId))
     .limit(1);
 
   const [firstContact] = contact;

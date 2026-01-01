@@ -3,9 +3,9 @@ import { ErrorSection } from "@components/error-section";
 import { DefaultLayout } from "@components/layouts/default-layout";
 import { LoadingSection } from "@components/loading-section";
 import { useGetContacts } from "@hooks/queries/contacts/useGetContacts";
+import type { Contact } from "@typings/contacts";
 import { useCallback } from "react";
-import { FlatList, ListRenderItemInfo, StatusBar } from "react-native";
-import type { Contact } from "src/@types/contacts";
+import { FlatList, ListRenderItemInfo } from "react-native";
 
 import { MemoizedContactItem } from "./contact-item";
 import { styles } from "./styles";
@@ -25,28 +25,6 @@ export function AllContacts() {
       offset: (styles.cardButton.height + styles.contentContainer.gap) * index,
     };
   }
-
-  // esse trecho de código faz com que a tela só seja renderizada
-  // depois que a animação de navegação terminar
-  // const [isReady, setIsReady] = useState(false);
-
-  // useEffect(() => {
-  //   // Essa função só roda depois que a animação de navegação terminar
-  //   const task = InteractionManager.runAfterInteractions(async () => {
-  //     // await new Promise((resolve) => setTimeout(resolve, 100));
-  //     setIsReady(true);
-  //   });
-
-  //   return () => task.cancel(); // Boa prática de limpeza
-  // }, []);
-
-  // if (!isReady) {
-  //   // Renderize algo muito leve aqui para não travar a transição
-  //   console.log("🚀 ~ Navigation animation in progress...");
-  //   return null;
-  // }
-
-  // final render após a animação de navegação
 
   if (isLoading) {
     return <LoadingSection message="Carregando contatos..." />;

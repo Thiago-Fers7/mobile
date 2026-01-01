@@ -1,7 +1,7 @@
 import { storage } from "@services/storage/mmkv";
 import { delay } from "@utils/delay";
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
-import { User } from "src/@types/user";
+import { User } from "@typings/user";
 
 const USER_DATA_STORE_KEY = "@MyApp:user_data";
 

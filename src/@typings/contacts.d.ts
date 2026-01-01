@@ -1,10 +1,11 @@
 import { contacts } from "src/database/schema";
 
 export type Contact = {
-  id: number;
+  id: string;
   name: string;
   email: string | null;
   isFavorite: number;
+  birthDate: Date | null;
   phone: string;
   avatar: string | null;
 };

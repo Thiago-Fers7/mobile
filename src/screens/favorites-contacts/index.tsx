@@ -7,9 +7,9 @@ import { Typography } from "@components/typography";
 import { useGetFavoritesContacts } from "@hooks/queries/contacts/useGetFavoritesContacts";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackNavigationProp } from "@routes/types";
+import { Contact } from "@typings/contacts";
 import { memo, useCallback } from "react";
 import { FlatList, ListRenderItemInfo, Pressable, View } from "react-native";
-import { Contact } from "src/@types/contacts";
 
 import { styles } from "./styles";
 

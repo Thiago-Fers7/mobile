@@ -1,3 +1,5 @@
+import "react-native-get-random-values";
+
 import { relations } from "drizzle-orm";
 import { integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { v4 as uuidv4 } from "uuid";
@@ -36,8 +38,8 @@ export const categories = sqliteTable("categories", {
     .notNull(),
 });
 
-export const contactCategories = sqliteTable(
-  "contact_categories",
+export const contactsCategories = sqliteTable(
+  "contacts_categories",
   {
     contact_id: text("contact_id")
       .notNull()
@@ -52,20 +54,20 @@ export const contactCategories = sqliteTable(
 );
 
 export const contactsRelations = relations(contacts, ({ many }) => ({
-  categories: many(contactCategories),
+  categories: many(contactsCategories),
 }));
 
 export const categoriesRelations = relations(categories, ({ many }) => ({
-  contacts: many(contactCategories),
+  contacts: many(contactsCategories),
 }));
 
-export const contactCategoriesRelations = relations(contactCategories, ({ one }) => ({
+export const contactCategoriesRelations = relations(contactsCategories, ({ one }) => ({
   contact: one(contacts, {
-    fields: [contactCategories.contact_id],
+    fields: [contactsCategories.contact_id],
     references: [contacts.id],
   }),
   category: one(categories, {
-    fields: [contactCategories.category_id],
+    fields: [contactsCategories.category_id],
     references: [categories.id],
   }),
 }));

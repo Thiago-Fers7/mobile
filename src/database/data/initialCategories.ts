@@ -1,4 +1,4 @@
-import { LocalCategory } from "@types/categories";
+import { LocalCategory } from "@typings/categories";
 
 export const SYSTEM_CATEGORIES: LocalCategory[] = [
   {
