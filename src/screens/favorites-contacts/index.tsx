@@ -1,77 +1,63 @@
+import { MemoizedContactItem } from "@components/contact-item";
+import { styles as itemStyles } from "@components/contact-item/styles";
 import { EmptyList } from "@components/empty-list";
 import { ErrorSection } from "@components/error-section";
 import { DefaultLayout } from "@components/layouts/default-layout";
 import { LoadingSection } from "@components/loading-section";
-import { SyncBar } from "@components/sync-bar";
-import { Typography } from "@components/typography";
 import { useGetFavoritesContacts } from "@hooks/queries/contacts/useGetFavoritesContacts";
-import { useNavigation } from "@react-navigation/native";
-import { RootStackNavigationProp } from "@routes/types";
-import { Contact } from "@typings/contacts";
-import { memo, useCallback } from "react";
-import { FlatList, ListRenderItemInfo, Pressable, View } from "react-native";
+import { theme } from "@theme";
+import type { ContactWithCategories } from "@typings/contacts";
+import { useCallback } from "react";
+import { FlatList, ListRenderItemInfo, View } from "react-native";
 
 import { styles } from "./styles";
 
-type ContactItemProps = {
-  contact: Contact;
-};
+const marginVerticalSeparator = theme.spacing.s12;
 
-function ContactItem({ contact }: ContactItemProps) {
-  const navigation = useNavigation<RootStackNavigationProp>();
-
-  function navigateToContactDetails() {
-    navigation.navigate("ContactDetails", { contactId: contact.id.toString() });
-  }
-
-  return (
-    <Pressable
-      style={({ pressed }) => [styles.cardButton, pressed && styles.cardButtonActive]}
-      onPress={navigateToContactDetails}
-    >
-      <Typography variant="body">{contact.name}</Typography>
-      <Typography variant="caption">{contact.email}</Typography>
-    </Pressable>
-  );
-}
-
-const MemoizedContactItem = memo(ContactItem);
+const ItemSeparatorComponent = () => <View style={styles.itemSeparator} />;
 
 export function FavoritesContacts() {
-  const { data: contacts, isLoading, isError, isFetching } = useGetFavoritesContacts();
+  const { data: contacts, isLoading, isFetching, isError, refetch } = useGetFavoritesContacts();
 
   const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<Contact>) => <MemoizedContactItem contact={item} />,
+    ({ item }: ListRenderItemInfo<ContactWithCategories>) => <MemoizedContactItem contact={item} />,
     []
   );
 
+  function getItemLayout(_: unknown, index: number) {
+    return {
+      index,
+      length: itemStyles.cardButton.height + marginVerticalSeparator * 2,
+      offset: (itemStyles.cardButton.height + marginVerticalSeparator * 2) * index,
+    };
+  }
+
   if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <LoadingSection message="Carregando contatos favoritos..." />
-      </View>
-    );
+    return <LoadingSection message="Carregando contatos..." />;
   }
 
   if (isError) {
     return (
-      <View style={styles.container}>
-        <ErrorSection message="Ocorreu um erro buscar os contatos favoritos." />
-      </View>
+      <ErrorSection
+        message="Ocorreu um erro ao carregar os contatos."
+        description="Verifique sua conexão com a internet e tente novamente."
+        onRetry={refetch}
+      />
     );
   }
 
   return (
-    <DefaultLayout>
-      <SyncBar visible={isFetching} />
-
+    <DefaultLayout contentStyle={styles.container}>
       <FlatList
         data={contacts}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
         contentContainerStyle={styles.contentContainer}
-        ListEmptyComponent={<EmptyList message="Você não possui contatos favoritos." />}
+        ListEmptyComponent={<EmptyList message="Nenhum contato encontrado." />}
         renderItem={renderItem}
-        showsHorizontalScrollIndicator={false}
+        getItemLayout={getItemLayout}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+        refreshing={isFetching}
+        onRefresh={refetch}
       />
     </DefaultLayout>
   );

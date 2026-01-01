@@ -1,28 +1,42 @@
+import { MemoizedContactItem } from "@components/contact-item";
+import { styles as itemStyles } from "@components/contact-item/styles";
 import { EmptyList } from "@components/empty-list";
 import { ErrorSection } from "@components/error-section";
 import { DefaultLayout } from "@components/layouts/default-layout";
 import { LoadingSection } from "@components/loading-section";
 import { useGetContacts } from "@hooks/queries/contacts/useGetContacts";
-import type { Contact } from "@typings/contacts";
+import { theme } from "@theme";
+import type { ContactWithCategories } from "@typings/contacts";
 import { useCallback } from "react";
-import { FlatList, ListRenderItemInfo } from "react-native";
+import { FlatList, ListRenderItemInfo, View } from "react-native";
 
-import { MemoizedContactItem } from "./contact-item";
 import { styles } from "./styles";
+
+const marginVerticalSeparator = theme.spacing.s12;
+
+const ItemSeparatorComponent = () => (
+  <View
+    style={{
+      height: 1,
+      backgroundColor: theme.colors.neutral[300],
+      marginVertical: marginVerticalSeparator,
+    }}
+  />
+);
 
 export function AllContacts() {
   const { data: contacts, isLoading, isFetching, isError, refetch } = useGetContacts();
 
   const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<Contact>) => <MemoizedContactItem contact={item} />,
+    ({ item }: ListRenderItemInfo<ContactWithCategories>) => <MemoizedContactItem contact={item} />,
     []
   );
 
   function getItemLayout(_: unknown, index: number) {
     return {
       index,
-      length: styles.cardButton.height + styles.contentContainer.gap,
-      offset: (styles.cardButton.height + styles.contentContainer.gap) * index,
+      length: itemStyles.cardButton.height + marginVerticalSeparator * 2,
+      offset: (itemStyles.cardButton.height + marginVerticalSeparator * 2) * index,
     };
   }
 
@@ -41,14 +55,15 @@ export function AllContacts() {
   }
 
   return (
-    <DefaultLayout layoutStyle={styles.container}>
+    <DefaultLayout contentStyle={styles.container}>
       <FlatList
         data={contacts}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
         contentContainerStyle={styles.contentContainer}
         ListEmptyComponent={<EmptyList message="Nenhum contato encontrado." />}
         renderItem={renderItem}
         getItemLayout={getItemLayout}
+        ItemSeparatorComponent={ItemSeparatorComponent}
         refreshing={isFetching}
         onRefresh={refetch}
       />

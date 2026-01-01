@@ -52,7 +52,7 @@ export function LoginScreen() {
   const confirmButtonText = isSubmitting ? "Entrando..." : "Entrar";
 
   return (
-    <DefaultLayout layoutStyle={styles.container} touchWithoutFeedback={true}>
+    <DefaultLayout contentStyle={styles.container}>
       <KeyboardAwareScrollView
         contentContainerStyle={styles.formContainer}
         showsVerticalScrollIndicator={false}

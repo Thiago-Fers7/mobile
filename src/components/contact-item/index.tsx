@@ -1,8 +1,9 @@
 import { Typography } from "@components/typography";
+import { UserAvatar } from "@components/user-avatar";
 import { useAddFavoriteContact } from "@hooks/queries/contacts/useAddFavoriteContact";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackNavigationProp } from "@routes/types";
-import { Contact } from "@typings/contacts";
+import { ContactWithCategories } from "@typings/contacts";
 import { Star } from "lucide-react-native";
 import { memo } from "react";
 import { ActivityIndicator, Pressable, View } from "react-native";
@@ -10,7 +11,7 @@ import { ActivityIndicator, Pressable, View } from "react-native";
 import { styles } from "./styles";
 
 type ContactItemProps = {
-  contact: Contact;
+  contact: ContactWithCategories;
 };
 
 function ContactItem({ contact }: ContactItemProps) {
@@ -30,9 +31,27 @@ function ContactItem({ contact }: ContactItemProps) {
       style={({ pressed }) => [styles.cardButton, pressed && styles.cardButtonActive]}
       onPress={navigateToContactDetails}
     >
-      <View>
-        <Typography variant="body">{contact.name}</Typography>
-        <Typography variant="caption">{contact.email}</Typography>
+      <View style={styles.contactInfoContainer}>
+        <UserAvatar name={contact.name} size={50} />
+
+        <View style={styles.contactInfo}>
+          <Typography variant="body">{contact.name}</Typography>
+
+          {!!contact.categories?.length && (
+            <View style={styles.categoriesContentContainer}>
+              {contact.categories.map((category) => (
+                <View
+                  key={category.id}
+                  style={[styles.categoryItem, { backgroundColor: category.color + "50" }]}
+                >
+                  <Typography variant="caption" style={styles.categoryText}>
+                    {category.name}
+                  </Typography>
+                </View>
+              ))}
+            </View>
+          )}
+        </View>
       </View>
 
       <Pressable

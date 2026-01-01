@@ -1,4 +1,5 @@
 import { db } from "@database/client";
+import { ContactWithCategories } from "@typings/contacts";
 import { delay } from "@utils/delay";
 
 export async function getContacts() {
@@ -7,8 +8,11 @@ export async function getContacts() {
   const contactsList = await db.query.contacts.findMany({
     with: {
       categories: {
+        columns: {},
         with: {
-          category: true,
+          category: {
+            columns: { id: true, name: true, color: true },
+          },
         },
       },
     },
@@ -21,12 +25,14 @@ export async function getContacts() {
       avatar: true,
       birth_date: true,
     },
+    orderBy: (contacts, { desc }) => [desc(contacts.created_at)],
   });
 
-  const mappedContacts = contactsList.map((contact) => ({
+  const mappedContacts: ContactWithCategories[] = contactsList.map((contact) => ({
     ...contact,
     isFavorite: contact.is_favorite,
     birthDate: contact.birth_date,
+    categories: contact.categories.map((catRel) => catRel.category),
   }));
 
   return mappedContacts;

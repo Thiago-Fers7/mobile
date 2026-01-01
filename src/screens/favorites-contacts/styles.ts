@@ -3,23 +3,14 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    position: "relative",
+    flex: 1,
   },
   contentContainer: {
-    padding: 16,
-    paddingTop: 0,
-    gap: 12,
+    padding: theme.spacing.s16,
   },
-  cardButton: {
-    padding: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.neutral[300],
-    borderRadius: 8,
-
-    display: "flex",
-    justifyContent: "center",
-  },
-  cardButtonActive: {
-    backgroundColor: theme.colors.neutral[200],
+  itemSeparator: {
+    height: 1,
+    backgroundColor: theme.colors.neutral[300],
+    marginVertical: theme.spacing.s12,
   },
 });

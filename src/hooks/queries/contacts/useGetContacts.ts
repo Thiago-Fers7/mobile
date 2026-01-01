@@ -9,7 +9,5 @@ export function useGetContacts() {
     queryFn: getContacts,
   });
 
-  console.log("useGetContacts query", query);
-
   return query;
 }

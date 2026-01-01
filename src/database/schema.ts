@@ -32,7 +32,7 @@ export const contacts = sqliteTable("contacts", {
 export const categories = sqliteTable("categories", {
   id: text("id").primaryKey().$default(generateId).notNull(),
   name: text("name").notNull().unique(),
-  color: text("color"),
+  color: text("color").notNull(),
   created_at: integer("created_at", { mode: "timestamp" })
     .$defaultFn(() => new Date())
     .notNull(),
